@@ -1,0 +1,52 @@
+<div class="my-5 mx-5">
+  <div class="row">
+    <div class="col-lg-6 total_employees">
+      <div class="row">
+        <div class="col-lg-6 number_container">
+          <img src="../../assets/people.svg">
+        </div>
+        <div class="col-lg-3 number_container">
+          <div class="numbers">{{dataSource?.data?.length}}</div>
+          <span class="badge badge-pill badge-primary">Total Employees</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 highest">
+      <div class="row">
+        <div class="label col-lg-6">Highest earning employee: </div>
+        <span class="badge badge-pill badge-success col-lg-3">{{highestEarning}}</span>
+      </div>
+      <div class="row">
+        <div class="label col-lg-6">Employee most recently joined:</div>
+        <span class="badge badge-pill badge-warning col-lg-3">{{recentlyJoined}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="date_joined" matSortDirection="desc" class="mat-elevation-z8 table-hover">
+      <!-- Full Name Column -->
+      <ng-container matColumnDef="full_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.full_name}} </td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="date_joined">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Joined </th>
+        <td mat-cell *matCellDef="let element"> {{element.date_joined | date: 'dd/MM/YYYY'}} </td>
+      </ng-container>
+
+      <!-- Salary Column -->
+      <ng-container matColumnDef="salary">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Salary </th>
+        <td mat-cell *matCellDef="let element"> {{element.salary | currency: 'MYR '}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
